@@ -1,0 +1,20 @@
+<scxml 
+    initial="init"
+    name="dhcp"
+    xmlns="http://www.w3.org/2005/07/scxml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="scxml.xsd" version="1.0">
+    <state id="init">
+        <transition event="DHCP Discover" target="waiting4Offer"></transition>
+    </state>
+    <state id="waiting4Offer">
+        <transition event="DHCP Offer" target="selecting" ></transition>
+    </state>
+    <state id="selecting">
+        <transition event="DHCP Request" target="waiting4Acceptance"></transition>
+    </state>
+    <state id="waiting4Acceptance">
+        <transition event="DHCP Ack" target="bound"></transition>
+    </state>
+    <state id="bound"></state>
+</scxml>

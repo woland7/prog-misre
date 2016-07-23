@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: commons-scxml:commons-scxml:0.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-scxml/commons-scxml/0.9/8fb51d3bb6bfa0e34870404a101657cef9d0ee58/commons-scxml-0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-scxml/commons-scxml/0.9/57b8d1c3b23bacd859a9ed27aa99b9124348b2fb/commons-scxml-0.9-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

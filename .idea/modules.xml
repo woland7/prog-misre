@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Analizzatore.iml" filepath="$PROJECT_DIR$/.idea/modules/Analizzatore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Analizzatore_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Analizzatore_main.iml" group="Analizzatore" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Analizzatore_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Analizzatore_test.iml" group="Analizzatore" />
+    </modules>
+  </component>
+</project>
