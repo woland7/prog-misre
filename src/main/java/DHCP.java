@@ -13,8 +13,8 @@ import java.net.URL;
 public class DHCP extends AbstractStateMachine {
     private File f_input;
 
-    public DHCP(File f_input, URL u_input) {
-        super(u_input);
+    public DHCP(File f_input, String s_input) {
+        super(DHCP.class.getClassLoader().getResource(s_input));
         this.f_input = f_input;
     }
 

@@ -5,14 +5,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 public class Analizzatore {
-    public static void main(String[] args){
-        System.out.println("Versione di prova-Antonio");
-        DHCP p = null;
-        try{
-            p = new DHCP(new File("esempio_prova.csv"), new File("dhcp.scxml").toURI().toURL());
-        }catch(MalformedURLException e){
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        System.out.println("Versione di prova");
+        DHCP p = new DHCP(new File("build\\resources\\main\\esempio_prova.csv"), "dhcp.scxml");
         p.run();
     }
 }
