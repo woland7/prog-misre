@@ -14,7 +14,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
@@ -48,9 +47,9 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Nuovo..." />
-                                    <Label layoutX="132.0" layoutY="18.0" text="Label" />
-                                    <Button layoutX="18.0" layoutY="62.0" mnemonicParsing="false" text="Analizza" />
+                                    <Button fx:id="nuovo" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleNuovo" text="Nuovo..." />
+                                    <Label fx:id="file_analizzato" layoutX="132.0" layoutY="18.0" text="Label" />
+                                    <Button fx:id="analizza" layoutX="18.0" layoutY="62.0" mnemonicParsing="false" text="Analizza" />
                                     <CheckBox layoutX="18.0" layoutY="95.0" mnemonicParsing="false" text="Salva su file" />
                                  </children>
                               </AnchorPane>
@@ -74,7 +73,7 @@
                      <children>
                         <ScrollPane prefHeight="175.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <Label text="Label" />
+                              <Label fx:id="output" text="Label" />
                            </content>
                         </ScrollPane>
                      </children>
