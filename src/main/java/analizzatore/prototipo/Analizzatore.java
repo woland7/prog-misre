@@ -1,6 +1,8 @@
 /**
  * Created by Antonio on 04/06/2016.
  */
+package analizzatore.prototipo;
+
 import java.io.File;
 import java.net.MalformedURLException;
 

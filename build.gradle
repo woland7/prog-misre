@@ -41,7 +41,7 @@ apply plugin: 'javafx-gradle-plugin'
 // configure javafx-gradle-plugin
 jfx {
     verbose = true
-    mainClass = "Analizzatore_UI"
+    mainClass = "analizzatore.prototipo.AnalizzatoreUI"
     jfxAppOutputDir = "build/jfx/app"
     jfxMainAppJarName = "project-jfx.jar"
     deployDir = "src/main/deploy"

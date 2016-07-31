@@ -1,6 +1,7 @@
 /**
  * Created by Antonio on 31/07/2016.
  */
+package analizzatore.prototipo;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
