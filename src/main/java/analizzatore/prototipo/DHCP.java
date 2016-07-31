@@ -1,3 +1,5 @@
+package analizzatore.prototipo;
+
 import org.apache.commons.scxml.env.AbstractStateMachine;
 import org.apache.commons.csv.*;
 
@@ -6,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+
 
 /**
  * Created by Antonio on 04/06/2016.
