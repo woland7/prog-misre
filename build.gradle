@@ -14,6 +14,9 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = 'analizzatore.prototipo.Analizzatore'
 
 repositories {
     mavenCentral()

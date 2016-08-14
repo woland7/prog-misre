@@ -19,7 +19,7 @@ public class DHCP extends AbstractStateMachine {
     private String message = null;
 
     public DHCP(File f_input) {
-        super(DHCP.class.getClassLoader().getResource("/dhcp.scxml"));
+        super(DHCP.class.getClassLoader().getResource("\\dhcp.scxml"));
         this.f_input = f_input;
     }
 
@@ -49,37 +49,41 @@ public class DHCP extends AbstractStateMachine {
 
     public void init(){
         System.out.println("Init-> ");
-        System.out.println("");
     }
 
     public void selecting(){
         selecting++;
-        System.out.println("Selecting->");
+        if(selecting <= 1)
+            System.out.println("Selecting->");
+        else
+            System.out.println("I've received more than one offers and I'm collecting them. Still in Selecting->");
+        System.out.println("Transition: " + message);
+
 
     }
 
     public void requesting(){
         requesting++;
+        System.out.println("Transition: " + message);
         System.out.println("Requesting->");
     }
 
     public void bound(){
         bound++;
+        System.out.println("Transition: " + message);
         System.out.println("Bound->");
     }
 
     public void renewing(){
         renewing++;
+        System.out.println("Transition: " + message);
         System.out.println("Renewing->");
     }
 
     public void rebinding(){
         rebinding++;
+        System.out.println("Transition: " + message);
         System.out.println("Rebinding->");
-    }
-
-    public int getInit(){
-        return init;
     }
 
     public int getSelecting(){
@@ -102,5 +106,5 @@ public class DHCP extends AbstractStateMachine {
         return rebinding;
     }
 
-    private int init = 0, selecting = 0, requesting = 0, bound = 0, renewing = 0, rebinding = 0;
+    private int selecting = 0, requesting = 0, bound = 0, renewing = 0, rebinding = 0;
 }
