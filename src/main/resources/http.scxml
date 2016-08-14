@@ -1,0 +1,56 @@
+<scxml 
+    initial="Need Request"
+    name="http"
+    xmlns="http://www.w3.org/2005/07/scxml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="scxml.xsd" version="1.0">
+    <state id="Need Request">
+        <transition event="Get" target="Sent Request"></transition>
+        <transition event="Head" target="Sent Request"></transition>
+        <transition event="Post" target="Sent Request"></transition>
+        <transition event="Put" target="Sent Request"></transition>
+        <transition event="Delete" target="Sent Request"></transition>
+    </state>
+    <state id="Sent Request">
+        <transition event="1XX" target="Information"></transition>
+        <transition event="2XX" target="Successful"></transition>
+        <transition event="3XX" target="Redirection"></transition>
+        <transition event="4XX" target="Client Error"></transition>
+        <transition event="5XX" target="Server Error"></transition>
+        <transition event="Get" target="Sent Request"></transition>
+        <transition event="Head" target="Sent Request"></transition>
+        <transition event="Post" target="Sent Request"></transition>
+        <transition event="Put" target="Sent Request"></transition>
+        <transition event="Delete" target="Sent Request"></transition>
+    </state>
+    <state id="Information">
+        <one-entry>
+            <send event="reset"></send>
+        </one-entry>
+        <transition event="reset" target="Need Request"></transition>
+    </state>
+    <state id="Successful">
+        <one-entry>
+            <send event="reset"></send>
+        </one-entry>
+        <transition event="reset" target="Need Request"></transition>
+    </state>
+    <state id="Redirection">
+        <one-entry>
+            <send event="reset"></send>
+        </one-entry>
+        <transition event="reset" target="Need Request"></transition>
+    </state>
+    <state id="Client Error">
+        <one-entry>
+            <send event="reset"></send>
+        </one-entry>
+        <transition event="reset" target="Need Request"></transition>
+    </state>
+    <state id="Server Error">
+        <one-entry>
+            <send event="reset"></send>
+        </one-entry>
+        <transition event="reset" target="Need Request"></transition>
+    </state>
+</scxml>

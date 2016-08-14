@@ -1,13 +1,14 @@
 package analizzatore.prototipo;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.scxml.env.AbstractStateMachine;
-import org.apache.commons.csv.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 
 
 /**
@@ -64,4 +65,6 @@ public class DHCP extends AbstractStateMachine {
     public void bound(){
         System.out.println("Sono in bound");
     }
+
+    private int init, waiting4Offer, selectiong, waiting4Acceptance, bound;
 }
