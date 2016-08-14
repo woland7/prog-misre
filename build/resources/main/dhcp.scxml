@@ -5,16 +5,30 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="scxml.xsd" version="1.0">
     <state id="init">
-        <transition event="DHCP Discover" target="waiting4Offer"></transition>
-    </state>
-    <state id="waiting4Offer">
-        <transition event="DHCP Offer" target="selecting" ></transition>
+        <transition event="DHCP Discover" target="selecting"></transition>
     </state>
     <state id="selecting">
-        <transition event="DHCP Request" target="waiting4Acceptance"></transition>
+        <transition event="DHCP Offer" target="selecting" ></transition>
+        <transition event="DHCP Request" target="requesting"></transition>
     </state>
-    <state id="waiting4Acceptance">
+    <state id="requesting">
         <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP Offer" target="requesting"></transition>
+        <transition event="DHCP Decline" target="init"></transition>
+        <transition event="DHCP Nack" target="init"></transition>
     </state>
-    <state id="bound"></state>
+    <state id="bound">
+        <transition event="DHCP Offer" target="bound"></transition>
+        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP Request" target="renewing"></transition>
+    </state>
+    <state id="renewing">
+        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP Request" target="rebinding"></transition>
+        <transition event="DHCP Nack" target="init"></transition>
+    </state>
+    <state id="rebinding">
+        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP Nack" target="init"></transition>
+    </state>
 </scxml>

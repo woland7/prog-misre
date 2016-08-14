@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7656d214-b0fa-4708-b4fa-4c7fb56df599" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/cache.properties.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/fileHashes.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/fileSnapshots.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.13/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/Analizzatore.class" afterPath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/Analizzatore.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/DHCP.class" afterPath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/DHCP.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/controller/UIController.class" afterPath="$PROJECT_DIR$/build/classes/main/analizzatore/prototipo/controller/UIController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/jfx/app/project-jfx.jar" afterPath="$PROJECT_DIR$/build/jfx/app/project-jfx.jar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/libs/Analizzatore-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/build/libs/Analizzatore-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/analizzatore/prototipo/DHCP.java" afterPath="$PROJECT_DIR$/src/main/java/analizzatore/prototipo/DHCP.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/analizzatore/prototipo/controller/UIController.java" afterPath="$PROJECT_DIR$/src/main/java/analizzatore/prototipo/controller/UIController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/resources/main/dhcp.scxml" afterPath="$PROJECT_DIR$/build/resources/main/dhcp.scxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/ui.fxml" afterPath="$PROJECT_DIR$/src/main/resources/ui.fxml" />
     </list>
     <ignored path="Analizzatore.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,7 +49,14 @@
             <state relative-caret-position="357">
               <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="e#1086#1087#0" expanded="false" />
+                <element signature="e#1121#1122#0" expanded="false" />
+                <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+                <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+                <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+                <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+                <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -92,8 +108,8 @@
       <file leaf-file-name="UIController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/analizzatore/prototipo/controller/UIController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+            <state relative-caret-position="256">
+              <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -1091,7 +1107,7 @@
       <workItem from="1471117431551" duration="1774000" />
       <workItem from="1471173585826" duration="1308000" />
       <workItem from="1471206817309" duration="1666000" />
-      <workItem from="1471210029823" duration="1722000" />
+      <workItem from="1471210029823" duration="2223000" />
     </task>
     <task id="LOCAL-00001" summary="I'm checking it's working.">
       <created>1469522307847</created>
@@ -1170,11 +1186,18 @@
       <option name="project" value="LOCAL" />
       <updated>1471210105011</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Minor changes">
+      <created>1471213385350</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1471213385350</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27918000" />
+    <option name="totallyTimeSpent" value="28419000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
@@ -1184,9 +1207,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32913387" sideWeight="0.5087848" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32913387" sideWeight="0.49121523" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23149607" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23149607" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913387" sideWeight="0.49121523" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23149607" sideWeight="0.4941435" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14787701" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1254,7 +1277,8 @@
     <MESSAGE value="Minor edits to DHCP and added Analizza function." />
     <MESSAGE value="Edited dhcp scxml and added http scxml." />
     <MESSAGE value="New workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="New workspace.xml" />
+    <MESSAGE value="Minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1287,7 +1311,14 @@
         <state relative-caret-position="340">
           <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1334,7 +1365,14 @@
         <state relative-caret-position="340">
           <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1381,7 +1419,14 @@
         <state relative-caret-position="340">
           <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1428,7 +1473,14 @@
         <state relative-caret-position="561">
           <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1471,7 +1523,14 @@
         <state relative-caret-position="85">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1595,16 +1654,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ui.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-661">
-          <caret line="16" column="238" selection-start-line="16" selection-start-column="226" selection-end-line="16" selection-end-column="238" />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/resources/main/esempio_prova.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1631,7 +1680,14 @@
         <state relative-caret-position="357">
           <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#1086#1087#0" expanded="false" />
+            <element signature="e#1121#1122#0" expanded="false" />
+            <marker date="1471210224931" expanded="true" signature="85:269" ph="..." />
+            <marker date="1471210224931" expanded="false" signature="423:434" ph=" { " />
+            <marker date="1471210224931" expanded="false" signature="447:453" ph=" }" />
+            <marker date="1471210224931" expanded="true" signature="511:641" ph="{...}" />
+            <marker date="1471210224931" expanded="true" signature="667:1050" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1673,10 +1729,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/ui.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/analizzatore/prototipo/controller/UIController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+        <state relative-caret-position="256">
+          <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
           <folding />
         </state>
       </provider>
