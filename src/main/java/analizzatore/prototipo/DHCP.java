@@ -18,8 +18,8 @@ public class DHCP extends AbstractStateMachine {
     private File f_input;
     private String message = null;
 
-    public DHCP(File f_input, String s_input) {
-        super(DHCP.class.getClassLoader().getResource(s_input));
+    public DHCP(File f_input) {
+        super(DHCP.class.getClassLoader().getResource("/dhcp.scxml"));
         this.f_input = f_input;
     }
 

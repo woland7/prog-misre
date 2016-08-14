@@ -49,8 +49,7 @@ public class UIController {
     private void handleAnalizza(){
         this.output.setText("Sto analizzando il file....\n");
         DHCP dhcp = new DHCP(file);
-        String output = dhcp.run();
-        this.output.appendText(output);
+        dhcp.run();
     }
 
     public void setAnalizzatoreUI(AnalizzatoreUI aui){
