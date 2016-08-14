@@ -32,7 +32,6 @@ public class AnalizzatoreUI extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(AnalizzatoreUI.class.getResource("/ui.fxml"));
             ui = (BorderPane) loader.load();
-
             Scene scene = new Scene(ui);
             primaryStage.setScene(scene);
             primaryStage.show();

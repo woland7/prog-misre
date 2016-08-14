@@ -5,12 +5,14 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -49,8 +51,9 @@
                                  <children>
                                     <Button fx:id="nuovo" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleNuovo" text="Nuovo..." />
                                     <Label fx:id="file_analizzato" layoutX="132.0" layoutY="18.0" text="Label" />
-                                    <Button fx:id="analizza" layoutX="18.0" layoutY="62.0" mnemonicParsing="false" text="Analizza" />
-                                    <CheckBox layoutX="18.0" layoutY="95.0" mnemonicParsing="false" text="Salva su file" />
+                                    <Button fx:id="analizza" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#handleAnalizza" text="Analizza" />
+                                    <CheckBox layoutX="14.0" layoutY="95.0" mnemonicParsing="false" text="Salva su file" />
+                                    <ChoiceBox layoutX="132.0" layoutY="57.0" prefHeight="25.0" prefWidth="82.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -71,9 +74,9 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <ScrollPane prefHeight="175.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <Label fx:id="output" text="Label" />
+                              <TextArea fx:id="output" prefHeight="175.0" prefWidth="598.0" />
                            </content>
                         </ScrollPane>
                      </children>
