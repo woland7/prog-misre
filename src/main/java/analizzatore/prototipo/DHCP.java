@@ -16,6 +16,7 @@ import java.io.IOException;
  */
 public class DHCP extends AbstractStateMachine {
     private File f_input;
+    private String message = null;
 
     public DHCP(File f_input, String s_input) {
         super(DHCP.class.getClassLoader().getResource(s_input));
@@ -27,7 +28,7 @@ public class DHCP extends AbstractStateMachine {
         {
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for(CSVRecord r: parser){
-                String message = r.get(6);
+                message = r.get(6);
                 int lastIndex = message.lastIndexOf('-');
                 message = message.substring(0,lastIndex);
                 message.trim();
@@ -47,24 +48,59 @@ public class DHCP extends AbstractStateMachine {
      */
 
     public void init(){
-        System.out.println("Sono in init");
-    }
-
-    public void waiting4Offer(){
-        System.out.println("Sono in waiting4Offer");
+        System.out.println("Init-> ");
+        System.out.println("");
     }
 
     public void selecting(){
-        System.out.println("Sono in selecting");
+        selecting++;
+        System.out.println("Selecting->");
+
     }
 
-    public void waiting4Acceptance(){
-        System.out.println("Sono in waiting4Acceptance");
+    public void requesting(){
+        requesting++;
+        System.out.println("Requesting->");
     }
 
     public void bound(){
-        System.out.println("Sono in bound");
+        bound++;
+        System.out.println("Bound->");
     }
 
-    private int init, waiting4Offer, selectiong, waiting4Acceptance, bound;
+    public void renewing(){
+        renewing++;
+        System.out.println("Renewing->");
+    }
+
+    public void rebinding(){
+        rebinding++;
+        System.out.println("Rebinding->");
+    }
+
+    public int getInit(){
+        return init;
+    }
+
+    public int getSelecting(){
+        return selecting;
+    }
+
+    public int getRequesting(){
+        return requesting;
+    }
+
+    public int getBound(){
+        return bound;
+    }
+
+    public int getRenewing(){
+        return renewing;
+    }
+
+    public int getRebinding(){
+        return rebinding;
+    }
+
+    private int init = 0, selecting = 0, requesting = 0, bound = 0, renewing = 0, rebinding = 0;
 }

@@ -1,18 +1,11 @@
 <scxml 
-    initial="initialization"
+    initial="init"
     name="dhcp"
     xmlns="http://www.w3.org/2005/07/scxml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="scxml.xsd" version="1.0">
-    <state id="initialization">
-        <parallel id="slack">
-            <state id="init">
-                <transition event="DHCP Discover" target="selecting"></transition>
-            </state>
-            <state id="init-reboot">
-                <transition event="DHCP Request" target="rebooting"></transition>
-            </state>
-        </parallel>
+    <state id="init">
+        <transition event="DHCP Discover" target="selecting"></transition>
     </state>
     <state id="selecting">
         <transition event="DHCP Offer" target="selecting" ></transition>
@@ -37,8 +30,5 @@
     <state id="rebinding">
         <transition event="DHCP Ack" target="bound"></transition>
         <transition event="DHCP Nack" target="init"></transition>
-    </state>
-    <state id="init-reboot">
-        
     </state>
 </scxml>
