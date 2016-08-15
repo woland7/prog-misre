@@ -4,11 +4,15 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.scxml.env.AbstractStateMachine;
+import org.apache.commons.scxml.model.State;
+import org.apache.commons.scxml.model.Transition;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -32,7 +36,10 @@ public class DHCP extends AbstractStateMachine {
                 int lastIndex = message.lastIndexOf('-');
                 message = message.substring(0,lastIndex);
                 message.trim();
-                this.fireEvent(message);
+                State state = this.getCurrentState();
+                System.out.println(state.getId());
+                List<Transition> list = state.getTransitionsList();
+
             }
         }catch(FileNotFoundException e)
         {
@@ -41,6 +48,11 @@ public class DHCP extends AbstractStateMachine {
         catch(IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public State getCurrentState() {
+        Set states = getEngine().getCurrentStatus().getStates();
+        return ( (State) states.iterator().next());
     }
 
     /*Ciascuno dei metodi sottostanti corrisponde a una degli stati dello schema
