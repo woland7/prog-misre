@@ -1,5 +1,6 @@
 package analizzatore.prototipo;
 
+import analizzatore.prototipo.model.Risultato;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -31,7 +32,8 @@ public class DHCP extends AbstractStateMachine {
         this.protocol = protocol;
     }
 
-    public void run() throws ProtocolMismatchException{
+    public Risultato run() throws ProtocolMismatchException{
+        Risultato ris = new Risultato();
         try
         {
             String protocol = null;
@@ -60,6 +62,7 @@ public class DHCP extends AbstractStateMachine {
         catch(IOException e) {
             e.printStackTrace();
         }
+        return ris;
     }
 
     public State getCurrentState() {

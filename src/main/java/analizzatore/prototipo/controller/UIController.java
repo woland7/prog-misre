@@ -3,6 +3,7 @@ package analizzatore.prototipo.controller;
 import analizzatore.prototipo.AnalizzatoreUI;
 import analizzatore.prototipo.DHCP;
 import analizzatore.prototipo.ProtocolMismatchException;
+import analizzatore.prototipo.model.Risultato;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -54,10 +55,11 @@ public class UIController {
     @FXML
     private void handleAnalizza(){
         this.output.setText("Sto analizzando il file....\n");
+        Risultato ris = null;
         switch(choiceProtocol.getValue()){
             case DHCP:  DHCP dhcp = new DHCP(file, choiceProtocol.getValue().toString());
                         try{
-                            dhcp.run();
+                            ris = dhcp.run();
                         }
                         catch(ProtocolMismatchException e){
                             e.getMessage();
@@ -66,7 +68,7 @@ public class UIController {
                         break;
             case HTTP:  DHCP http = new DHCP(file, choiceProtocol.getValue().toString());
                         try{
-                            http.run();
+                            ris = http.run();
                         }
                         catch(ProtocolMismatchException e){
                             e.getMessage();
@@ -74,6 +76,11 @@ public class UIController {
                         }
                         break;
         }
+        this.handleResult(ris);
+
+    }
+
+    private void handleResult(Risultato ris){
 
     }
 
