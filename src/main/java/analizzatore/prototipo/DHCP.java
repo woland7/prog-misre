@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -21,25 +22,36 @@ import java.util.Set;
 public class DHCP extends AbstractStateMachine {
     private File f_input;
     private String message = null;
+    private String protocol;
+    private final String protocolException = "C'è la presenza di un pacchetto di un altro protocollo.";
 
-    public DHCP(File f_input) {
+    public DHCP(File f_input, String protocol) {
         super(DHCP.class.getClassLoader().getResource("\\dhcp.scxml"));
         this.f_input = f_input;
+        this.protocol = protocol;
     }
 
-    public void run(){
+    public void run() throws ProtocolMismatchException{
         try
         {
+            String protocol = null;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for(CSVRecord r: parser){
+                protocol = r.get(4);
+                if(!protocol.equals(this.protocol))
+                    throw new ProtocolMismatchException(protocolException + ": " + protocol);
                 message = r.get(6);
                 int lastIndex = message.lastIndexOf('-');
                 message = message.substring(0,lastIndex);
                 message.trim();
+                this.getCurrentState();
                 State state = this.getCurrentState();
-                System.out.println(state.getId());
                 List<Transition> list = state.getTransitionsList();
-
+                for(Transition t: list){
+                    System.out.println(t.getEvent());
+                    if(t.getEvent().equals(message))
+                        this.fireEvent(message);
+                }
             }
         }catch(FileNotFoundException e)
         {
@@ -51,12 +63,15 @@ public class DHCP extends AbstractStateMachine {
     }
 
     public State getCurrentState() {
-        Set states = getEngine().getCurrentStatus().getStates();
-        return ( (State) states.iterator().next());
+        Set s = this.getEngine().getCurrentStatus().getStates();
+        Iterator iter = s.iterator();
+        State st = (State) iter.next();
+        System.out.println(st.getId());
+        return st;
     }
 
     /*Ciascuno dei metodi sottostanti corrisponde a una degli stati dello schema
-    della macchina a stati finit.
+    della macchina a stati finiti.
      */
 
     public void init(){
@@ -65,11 +80,12 @@ public class DHCP extends AbstractStateMachine {
 
     public void selecting(){
         selecting++;
-        if(selecting <= 1)
+        System.out.println("Transition: " + message);
+        if(selecting <= 2)
             System.out.println("Selecting->");
         else
             System.out.println("I've received more than one offers and I'm collecting them. Still in Selecting->");
-        System.out.println("Transition: " + message);
+
 
 
     }

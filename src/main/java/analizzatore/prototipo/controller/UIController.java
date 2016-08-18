@@ -2,7 +2,9 @@ package analizzatore.prototipo.controller;
 
 import analizzatore.prototipo.AnalizzatoreUI;
 import analizzatore.prototipo.DHCP;
+import analizzatore.prototipo.ProtocolMismatchException;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
@@ -25,6 +27,9 @@ public class UIController {
     @FXML
     private TextArea output;
 
+    @FXML
+    private ChoiceBox<String> choiceProtocol;
+
     public UIController(){
 
     }
@@ -32,6 +37,7 @@ public class UIController {
     @FXML
     private void initialize(){
         file_analizzato.setText("Nessun file selezionato.");
+        choiceProtocol.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -48,11 +54,32 @@ public class UIController {
     @FXML
     private void handleAnalizza(){
         this.output.setText("Sto analizzando il file....\n");
-        DHCP dhcp = new DHCP(file);
-        dhcp.run();
+        switch(choiceProtocol.getValue()){
+            case DHCP:  DHCP dhcp = new DHCP(file, choiceProtocol.getValue().toString());
+                        try{
+                            dhcp.run();
+                        }
+                        catch(ProtocolMismatchException e){
+                            e.getMessage();
+                            System.exit(1);
+                        }
+                        break;
+            case HTTP:  DHCP http = new DHCP(file, choiceProtocol.getValue().toString());
+                        try{
+                            http.run();
+                        }
+                        catch(ProtocolMismatchException e){
+                            e.getMessage();
+                            System.exit(1);
+                        }
+                        break;
+        }
+
     }
 
     public void setAnalizzatoreUI(AnalizzatoreUI aui){
         this.aui = aui;
     }
+
+    enum String{DHCP, HTTP}
 }
