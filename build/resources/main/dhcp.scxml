@@ -12,23 +12,23 @@
         <transition event="DHCP Request" target="requesting"></transition>
     </state>
     <state id="requesting">
-        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP ACK" target="bound"></transition>
         <transition event="DHCP Offer" target="requesting"></transition>
         <transition event="DHCP Decline" target="init"></transition>
-        <transition event="DHCP Nack" target="init"></transition>
+        <transition event="DHCP NACK" target="init"></transition>
     </state>
     <state id="bound">
         <transition event="DHCP Offer" target="bound"></transition>
-        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP ACK" target="bound"></transition>
         <transition event="DHCP Request" target="renewing"></transition>
     </state>
     <state id="renewing">
-        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP ACK" target="bound"></transition>
         <transition event="DHCP Request" target="rebinding"></transition>
         <transition event="DHCP Nack" target="init"></transition>
     </state>
     <state id="rebinding">
-        <transition event="DHCP Ack" target="bound"></transition>
+        <transition event="DHCP NACK" target="bound"></transition>
         <transition event="DHCP Nack" target="init"></transition>
     </state>
 </scxml>

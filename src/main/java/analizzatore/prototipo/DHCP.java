@@ -1,20 +1,20 @@
 package analizzatore.prototipo;
 
 import analizzatore.prototipo.model.Risultato;
+import analizzatore.prototipo.model.RisultatoDHCP;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.scxml.env.AbstractStateMachine;
 import org.apache.commons.scxml.model.State;
 import org.apache.commons.scxml.model.Transition;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import static analizzatore.prototipo.Constants.DHCP_TRANSITIONS;
 
 
 /**
@@ -24,53 +24,57 @@ public class DHCP extends AbstractStateMachine {
     private File f_input;
     private String message = null;
     private String protocol;
-    private final String protocolException = "C'è la presenza di un pacchetto di un altro protocollo.";
+    private String fileName;
+    private RisultatoDHCP ris;
 
     public DHCP(File f_input, String protocol) {
-        super(DHCP.class.getClassLoader().getResource("\\dhcp.scxml"));
+        super(DHCP.class.getClassLoader().getResource("dhcp.scxml"));
         this.f_input = f_input;
         this.protocol = protocol;
+        this.fileName = f_input.getAbsolutePath();
     }
 
-    public Risultato run() throws ProtocolMismatchException{
-        Risultato ris = new Risultato();
+    public Risultato run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException{
+        int countPackets = 0;
         try
         {
             String protocol = null;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for(CSVRecord r: parser){
+                countPackets++;
                 protocol = r.get(4);
-                if(!protocol.equals(this.protocol))
-                    throw new ProtocolMismatchException(protocolException + ": " + protocol);
+                if(!protocol.equals("DHCP"))
+                    throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol);
                 message = r.get(6);
                 int lastIndex = message.lastIndexOf('-');
-                message = message.substring(0,lastIndex);
-                message.trim();
-                this.getCurrentState();
-                State state = this.getCurrentState();
-                List<Transition> list = state.getTransitionsList();
-                for(Transition t: list){
-                    System.out.println(t.getEvent());
-                    if(t.getEvent().equals(message))
-                        this.fireEvent(message);
+                message = message.substring(0,lastIndex).trim();
+                if(!DHCP_TRANSITIONS.contains(message))
+                    throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.");
+                Set<State> states = this.getEngine().getCurrentStatus().getAllStates();
+                boolean check = false;
+                List<Transition> transitions = null;
+                for(State s: states){
+                    transitions = s.getTransitionsList();
+                    for(Transition t: transitions)
+                        if (message.equals(t.getEvent())) {
+                            check = true;
+                            ris.addEvent(message);
+                        }
                 }
+                if(!check)
+                    throw new TransitionNotValidException("Not valid transition: " + message, transitions);
+                this.fireEvent(message);
             }
-        }catch(FileNotFoundException e)
-        {
+        }catch(FileNotFoundException e){
             e.printStackTrace();
         }
         catch(IOException e) {
             e.printStackTrace();
         }
+        ris.setFileName(fileName);
+        ris.setProtocol(protocol);
+        ris.setCountPackets(countPackets);
         return ris;
-    }
-
-    public State getCurrentState() {
-        Set s = this.getEngine().getCurrentStatus().getStates();
-        Iterator iter = s.iterator();
-        State st = (State) iter.next();
-        System.out.println(st.getId());
-        return st;
     }
 
     /*Ciascuno dei metodi sottostanti corrisponde a una degli stati dello schema
@@ -78,64 +82,41 @@ public class DHCP extends AbstractStateMachine {
      */
 
     public void init(){
-        System.out.println("Init-> ");
+        if(ris == null) {
+            ris = new RisultatoDHCP();
+            ris.createStates();
+        }
+        ris.incrementNumberStates("Init");
+        ris.addState("Init");
     }
 
     public void selecting(){
-        selecting++;
-        System.out.println("Transition: " + message);
-        if(selecting <= 2)
-            System.out.println("Selecting->");
-        else
-            System.out.println("I've received more than one offers and I'm collecting them. Still in Selecting->");
-
-
-
+        if(ris.getNumberStates().get("Selecting") <= 1)
+            ris.addState("Selecting");
+        else{
+            ris.addState("Selecting");
+            ris.addExtraInfo("Collecting more than one offer.");
+        }
+        ris.incrementNumberStates("Selecting");
     }
 
     public void requesting(){
-        requesting++;
-        System.out.println("Transition: " + message);
-        System.out.println("Requesting->");
+        ris.incrementNumberStates("Requesting");
+        ris.addState("Requesting");
     }
 
     public void bound(){
-        bound++;
-        System.out.println("Transition: " + message);
-        System.out.println("Bound->");
+        ris.incrementNumberStates("Bound");
+        ris.addState("Bound");
     }
 
     public void renewing(){
-        renewing++;
-        System.out.println("Transition: " + message);
-        System.out.println("Renewing->");
+        ris.incrementNumberStates("Renewing");
+        ris.addState("Renewing");
     }
 
     public void rebinding(){
-        rebinding++;
-        System.out.println("Transition: " + message);
-        System.out.println("Rebinding->");
+        ris.incrementNumberStates("Rebinding");
+        ris.addState("Rebinding");
     }
-
-    public int getSelecting(){
-        return selecting;
-    }
-
-    public int getRequesting(){
-        return requesting;
-    }
-
-    public int getBound(){
-        return bound;
-    }
-
-    public int getRenewing(){
-        return renewing;
-    }
-
-    public int getRebinding(){
-        return rebinding;
-    }
-
-    private int selecting = 0, requesting = 0, bound = 0, renewing = 0, rebinding = 0;
 }
