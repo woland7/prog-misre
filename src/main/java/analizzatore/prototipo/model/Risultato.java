@@ -1,5 +1,7 @@
 package analizzatore.prototipo.model;
 
+import java.util.HashMap;
+
 /**
  * Created by Antonio on 19/08/2016.
  */
@@ -9,6 +11,7 @@ public class Risultato {
     private String fileName;
     private int countPackets;
     private StringBuilder textualInformation;
+    private HashMap<String, Integer> states;
 
     public Risultato(String fileName, String protocol){
         this.setFileName(fileName);
@@ -18,6 +21,11 @@ public class Risultato {
     public Risultato(){
         this.resultStringBuilder = new StringBuilder("Analisi...:\n");
         this.textualInformation = new StringBuilder("Sintesi del percorso:\n");
+        states = new HashMap<String,Integer>();
+    }
+
+    public HashMap<String, Integer> getNumberStates(){
+        return this.states;
     }
 
     public String getResultString(){

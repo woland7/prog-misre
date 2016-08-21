@@ -1,6 +1,5 @@
 package analizzatore.prototipo;
 
-import analizzatore.prototipo.model.Risultato;
 import analizzatore.prototipo.model.RisultatoDHCP;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -8,12 +7,15 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.scxml.env.AbstractStateMachine;
 import org.apache.commons.scxml.model.State;
 import org.apache.commons.scxml.model.Transition;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+
+import static analizzatore.prototipo.Constants.DHCP_EXTRAINFO;
 import static analizzatore.prototipo.Constants.DHCP_TRANSITIONS;
 
 
@@ -26,15 +28,16 @@ public class DHCP extends AbstractStateMachine {
     private String protocol;
     private String fileName;
     private RisultatoDHCP ris;
+    private State currentState;
 
     public DHCP(File f_input, String protocol) {
-        super(DHCP.class.getClassLoader().getResource("dhcp.scxml"));
+        super(DHCP.class.getClassLoader().getResource("DHCP.scxml"));
         this.f_input = f_input;
         this.protocol = protocol;
         this.fileName = f_input.getAbsolutePath();
     }
 
-    public Risultato run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException{
+    public RisultatoDHCP run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException{
         int countPackets = 0;
         try
         {
@@ -59,10 +62,11 @@ public class DHCP extends AbstractStateMachine {
                         if (message.equals(t.getEvent())) {
                             check = true;
                             ris.addEvent(message);
+                            ris.addExtraInfo(DHCP_EXTRAINFO.get(s.getId()+"-"+message));
                         }
                 }
                 if(!check)
-                    throw new TransitionNotValidException("Not valid transition: " + message, transitions);
+                    throw new TransitionNotValidException("Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
                 this.fireEvent(message);
             }
         }catch(FileNotFoundException e){
@@ -81,7 +85,7 @@ public class DHCP extends AbstractStateMachine {
     della macchina a stati finiti.
      */
 
-    public void init(){
+    public void Init(){
         if(ris == null) {
             ris = new RisultatoDHCP();
             ris.createStates();
@@ -90,32 +94,32 @@ public class DHCP extends AbstractStateMachine {
         ris.addState("Init");
     }
 
-    public void selecting(){
+    public void Selecting(){
         if(ris.getNumberStates().get("Selecting") <= 1)
             ris.addState("Selecting");
         else{
             ris.addState("Selecting");
-            ris.addExtraInfo("Collecting more than one offer.");
+            ris.addExtraInfo("Si stanno collezionando più offerte.");
         }
         ris.incrementNumberStates("Selecting");
     }
 
-    public void requesting(){
+    public void Requesting(){
         ris.incrementNumberStates("Requesting");
         ris.addState("Requesting");
     }
 
-    public void bound(){
+    public void Bound(){
         ris.incrementNumberStates("Bound");
         ris.addState("Bound");
     }
 
-    public void renewing(){
+    public void Renewing(){
         ris.incrementNumberStates("Renewing");
         ris.addState("Renewing");
     }
 
-    public void rebinding(){
+    public void Rebinding(){
         ris.incrementNumberStates("Rebinding");
         ris.addState("Rebinding");
     }

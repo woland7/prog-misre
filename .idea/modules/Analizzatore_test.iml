@@ -19,6 +19,7 @@
     <orderEntry type="library" name="Gradle: xalan:xalan:2.7.2" level="project" />
     <orderEntry type="library" name="Gradle: commons-jexl:commons-jexl:1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.commons:commons-csv:1.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:19.0" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.11" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" name="Gradle: xalan:serializer:2.7.2" level="project" />
