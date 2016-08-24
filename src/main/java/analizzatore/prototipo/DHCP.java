@@ -15,8 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import static analizzatore.prototipo.Constants.DHCP_EXTRAINFO;
-import static analizzatore.prototipo.Constants.DHCP_TRANSITIONS;
+import static analizzatore.prototipo.Constants.*;
 
 
 /**
@@ -31,7 +30,7 @@ public class DHCP extends AbstractStateMachine {
     private State currentState;
 
     public DHCP(File f_input, String protocol) {
-        super(DHCP.class.getClassLoader().getResource("DHCP.scxml"));
+        super(DHCP.class.getClassLoader().getResource(DHCP_RESOURCE));
         this.f_input = f_input;
         this.protocol = protocol;
         this.fileName = f_input.getAbsolutePath();
@@ -46,7 +45,7 @@ public class DHCP extends AbstractStateMachine {
             for(CSVRecord r: parser){
                 countPackets++;
                 protocol = r.get(4);
-                if(!protocol.equals("DHCP"))
+                if(!protocol.equals(DHCP_PROTOCOL_NAME))
                     throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol);
                 message = r.get(6);
                 int lastIndex = message.lastIndexOf('-');

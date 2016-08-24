@@ -69,10 +69,10 @@ set CMD_LINE_ARGS=%$
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\Analizzatore-0.1.0.jar;%APP_HOME%\lib\groovy-all-2.3.11.jar;%APP_HOME%\lib\commons-beanutils-1.9.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar;%APP_HOME%\lib\commons-scxml-0.9.jar;%APP_HOME%\lib\commons-jexl-2.1.1.jar;%APP_HOME%\lib\xalan-2.7.2.jar;%APP_HOME%\lib\commons-jexl-1.1.jar;%APP_HOME%\lib\commons-csv-1.4.jar;%APP_HOME%\lib\commons-logging-1.1.1.jar;%APP_HOME%\lib\serializer-2.7.2.jar;%APP_HOME%\lib\junit-3.8.1.jar;%APP_HOME%\lib\xml-apis-1.3.04.jar;%APP_HOME%\lib\commons-digester-1.8.jar
+set CLASSPATH=%APP_HOME%\lib\Analizzatore-1.0-SNAPSHOT.jar;%APP_HOME%\lib\groovy-all-2.3.11.jar;%APP_HOME%\lib\commons-beanutils-1.9.2.jar;%APP_HOME%\lib\commons-collections-3.2.2.jar;%APP_HOME%\lib\commons-scxml-0.9.jar;%APP_HOME%\lib\commons-jexl-2.1.1.jar;%APP_HOME%\lib\xalan-2.7.2.jar;%APP_HOME%\lib\commons-jexl-1.1.jar;%APP_HOME%\lib\commons-csv-1.4.jar;%APP_HOME%\lib\guava-19.0.jar;%APP_HOME%\lib\commons-logging-1.1.1.jar;%APP_HOME%\lib\serializer-2.7.2.jar;%APP_HOME%\lib\junit-3.8.1.jar;%APP_HOME%\lib\xml-apis-1.3.04.jar;%APP_HOME%\lib\commons-digester-1.8.jar
 
 @rem Execute Analizzatore
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ANALIZZATORE_OPTS%  -classpath "%CLASSPATH%" Analizzatore %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ANALIZZATORE_OPTS%  -classpath "%CLASSPATH%" analizzatore.prototipo.Analizzatore %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell

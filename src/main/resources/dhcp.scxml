@@ -1,34 +1,34 @@
 <scxml 
-    initial="init"
-    name="dhcp"
+    initial="Init"
+    name="DHCP"
     xmlns="http://www.w3.org/2005/07/scxml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="scxml.xsd" version="1.0">
-    <state id="init">
-        <transition event="DHCP Discover" target="selecting"></transition>
+    <state id="Init">
+        <transition event="DHCP Discover" target="Selecting"></transition>
     </state>
-    <state id="selecting">
-        <transition event="DHCP Offer" target="selecting" ></transition>
-        <transition event="DHCP Request" target="requesting"></transition>
+    <state id="Selecting">
+        <transition event="DHCP Offer" target="Selecting" ></transition>
+        <transition event="DHCP Request" target="Requesting"></transition>
     </state>
-    <state id="requesting">
-        <transition event="DHCP ACK" target="bound"></transition>
-        <transition event="DHCP Offer" target="requesting"></transition>
-        <transition event="DHCP Decline" target="init"></transition>
-        <transition event="DHCP NACK" target="init"></transition>
+    <state id="Requesting">
+        <transition event="DHCP ACK" target="Bound"></transition>
+        <transition event="DHCP Offer" target="Requesting"></transition>
+        <transition event="DHCP Decline" target="Init"></transition>
+        <transition event="DHCP NACK" target="Init"></transition>
     </state>
-    <state id="bound">
-        <transition event="DHCP Offer" target="bound"></transition>
-        <transition event="DHCP ACK" target="bound"></transition>
-        <transition event="DHCP Request" target="renewing"></transition>
+    <state id="Bound">
+        <transition event="DHCP Offer" target="Bound"></transition>
+        <transition event="DHCP ACK" target="Bound"></transition>
+        <transition event="DHCP Request" target="Renewing"></transition>
     </state>
-    <state id="renewing">
-        <transition event="DHCP ACK" target="bound"></transition>
-        <transition event="DHCP Request" target="rebinding"></transition>
-        <transition event="DHCP Nack" target="init"></transition>
+    <state id="Renewing">
+        <transition event="DHCP ACK" target="Bound"></transition>
+        <transition event="DHCP Request" target="Rebinding"></transition>
+        <transition event="DHCP Nack" target="Init"></transition>
     </state>
-    <state id="rebinding">
-        <transition event="DHCP NACK" target="bound"></transition>
-        <transition event="DHCP Nack" target="init"></transition>
+    <state id="Rebinding">
+        <transition event="DHCP NACK" target="Bound"></transition>
+        <transition event="DHCP Nack" target="Init"></transition>
     </state>
 </scxml>

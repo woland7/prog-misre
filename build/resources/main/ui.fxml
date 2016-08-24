@@ -61,9 +61,9 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <BarChart layoutX="-112.0" layoutY="-113.0" prefHeight="190.0" prefWidth="298.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <BarChart fx:id="istogramma" alternativeColumnFillVisible="true" layoutX="-112.0" layoutY="-113.0" legendVisible="false" prefHeight="190.0" prefWidth="298.0" title="Frequenza degli stati" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <xAxis>
-                                        <CategoryAxis side="BOTTOM" />
+                                        <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                                       </xAxis>
                                       <yAxis>
                                         <NumberAxis side="LEFT" />

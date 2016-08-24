@@ -3,6 +3,7 @@ package analizzatore.prototipo.controller;
 import analizzatore.prototipo.*;
 import analizzatore.prototipo.model.Risultato;
 import analizzatore.prototipo.model.RisultatoDHCP;
+import analizzatore.prototipo.model.RisultatoHTTP;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -53,6 +54,7 @@ public class UIController {
     private void initialize(){
         output.setText("Nessun file selezionato.\n");
         choiceProtocol.getSelectionModel().selectFirst();
+        xAxis.setLabel("Stati");
     }
 
     @FXML
@@ -87,18 +89,19 @@ public class UIController {
             }
         }
         else{
-            DHCP http = new DHCP(file, choiceProtocol.getValue().toString());
+            HTTP http = new HTTP(file, choiceProtocol.getValue().toString());
             try{
-                RisultatoDHCP ris = http.run();
-            }
-            catch(ProtocolMismatchException e){
+                RisultatoHTTP ris = http.run();
+                compute(ris);
+            } catch (ProtocolMismatchException e) {
                 output.appendText(e.getMessage() + "Fai attenzione alla scelta del protocollo.");
-            }
-            catch(TransitionNotFoundException e){
 
-            }
-            catch(TransitionNotValidException e){
-
+            } catch (TransitionNotFoundException e) {
+                output.appendText(e.getMessage());
+            } catch (TransitionNotValidException e) {
+                output.appendText(e.getMessage());
+                for(Transition t: e.getTransitions())
+                    output.appendText(t.getEvent()+"\n");
             }
         }
     }
@@ -113,7 +116,6 @@ public class UIController {
     private void handleIstogramma(HashMap<String,Integer> numberStates){
         XYChart.Series<String,Number> frequenze = new XYChart.Series();
         Set<String> keySet = numberStates.keySet();
-        xAxis.setLabel("Stati");
         for(String s: keySet)
             frequenze.getData().add(new XYChart.Data(s,numberStates.get(s)));
         istogramma.getData().add(frequenze);
@@ -139,6 +141,7 @@ public class UIController {
     @FXML
     private void handlePulisci(){
         output.setText("");
+        istogramma.getData().clear();
     }
 
     public void setAnalizzatoreUI(AnalizzatoreUI aui){

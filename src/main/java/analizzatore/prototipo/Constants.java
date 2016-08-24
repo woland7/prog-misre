@@ -1,11 +1,7 @@
 package analizzatore.prototipo;
 
 import com.google.common.collect.ImmutableMap;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * Created by Antonio on 20/08/2016.
@@ -15,23 +11,27 @@ public final class Constants {
 
     }
 
-    public final static Set<String> DHCP_TRANSITIONS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-            "DHCP Discover",
-            "DHCP Offer",
-            "DHCP ACK",
-            "DHCP NACK",
-            "DHCP Request",
-            "DHCP Decline"
-            )));
+    public static final String DHCP_PROTOCOL_NAME = "DHCP";
 
-    public final static Set<String> DHCP_STATES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-            "Init",
-            "Selecting",
-            "Requesting",
-            "Bound",
-            "Renewing",
-            "Rebiding"
-    )));
+    public static final String DHCP_RESOURCE = "DHCP.scxml";
+
+    public final static ImmutableSet<String> DHCP_TRANSITIONS = new ImmutableSet.Builder<String>()
+            .add("DHCP Discover")
+            .add("DHCP Offer")
+            .add("DHCP ACK")
+            .add("DHCP NACK")
+            .add("DHCP Request")
+            .add("DHCP Decline")
+            .build();
+
+    public final static ImmutableSet<String> DHCP_STATES = new ImmutableSet.Builder<String>()
+            .add("Init")
+            .add("Selecting")
+            .add("Requesting")
+            .add("Bound")
+            .add("Renewing")
+            .add("Rebinding")
+            .build();
 
     static final ImmutableMap<String,String> DHCP_EXTRAINFO = new ImmutableMap.Builder<String,String>()
             .put("Init-DHCP Discover","Inviato messeggio di scoperta")
@@ -50,10 +50,30 @@ public final class Constants {
             .put("Rebinding-DHCP ACK","Registrazione del lease. Impostazione dei timer T1 e T2")
             .build();
 
-    public final static Set<String> HTTP_TRANSITIONS = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(
-            "DHCP Discover",
-            "DHCP Offer"
-    )));
+    public static final String HTTP_PROTOCOL_NAME = "HTTP";
 
-    public static final String DHCP_PROTOCOL_NAME = "DHCP";
+    public static final String HTTP_RESOURCE = "HTTP.scxml";
+
+    public final static ImmutableSet<String> HTTP_TRANSITIONS = new ImmutableSet.Builder<String>()
+            .add("GET")
+            .add("POST")
+            .add("PUT")
+            .add("HEAD")
+            .add("DELETE")
+            .add("(10[0-3])")
+            .add("(20[0-6])")
+            .add("(30[0-8])")
+            .add("(40[0-9]|41[0-7])")
+            .add("(50[0-9]|51[0-1])")
+            .build();
+
+    public final static ImmutableSet<String> HTTP_STATES = new ImmutableSet.Builder<String>()
+            .add("NeedRequest")
+            .add("SentRequest")
+            .add("Information")
+            .add("Successful")
+            .add("Redirection")
+            .add("ClientError")
+            .add("ServerError")
+            .build();
 }
