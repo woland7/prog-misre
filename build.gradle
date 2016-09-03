@@ -16,8 +16,6 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName = 'analizzatore.prototipo.Analizzatore'
-
 repositories {
     mavenCentral()
 }
@@ -45,9 +43,9 @@ apply plugin: 'javafx-gradle-plugin'
 // configure javafx-gradle-plugin
 jfx {
     verbose = true
-    mainClass = "analizzatore.prototipo.AnalizzatoreUI"
+    mainClass = "analizzatore.prototipo.AnalyserUI"
     jfxAppOutputDir = "build/jfx/app"
-    jfxMainAppJarName = "project-jfx.jar"
+    jfxMainAppJarName = "analizzatorePrototipo.jar"
     deployDir = "src/main/deploy"
 
     // gradle jfxJar

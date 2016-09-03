@@ -1,5 +1,0 @@
-"No.","Time","Source","Destination","Protocol","Length","Info"
-"1","0.000000","0.0.0.0","255.255.255.255","DHCP","314","DHCP Disdasdsdver - Transaction ID 0x3d1d"
-"2","0.000295","192.168.0.1","192.168.0.10","DHCP","342","DHCP Offer    - Transaction ID 0x3d1d"
-"3","0.070031","0.0.0.0","255.255.255.255","DHCP","314","DHCP Request  - Transaction ID 0x3d1e"
-"4","0.070345","192.168.0.1","192.168.0.10","DHCP","342","DHCP ACK      - Transaction ID 0x3d1e"

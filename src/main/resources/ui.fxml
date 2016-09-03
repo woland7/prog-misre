@@ -23,8 +23,7 @@
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File" />
-          <Menu mnemonicParsing="false" text="Modifica" />
-          <Menu mnemonicParsing="false" text="Aiuto">
+          <Menu mnemonicParsing="false" text="?">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
@@ -46,7 +45,7 @@
                                     <Button fx:id="nuovo" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleNuovo" text="Nuovo..." />
                                     <Label fx:id="protocollo" layoutX="119.0" layoutY="18.0" text="Protocollo" />
                                     <Button fx:id="analizza" layoutX="14.0" layoutY="57.0" mnemonicParsing="false" onAction="#handleAnalizza" text="Analizza" />
-                                    <CheckBox fx:id="salvaFile" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" text="Salva su file" />
+                                    <CheckBox fx:id="saveFile" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" text="Salva su file" />
                                     <ChoiceBox fx:id="choiceProtocol" layoutX="179.0" layoutY="14.0" prefHeight="25.0" prefWidth="80.0">
                                      <items>
                                          <FXCollections fx:factory="observableArrayList">
@@ -57,16 +56,17 @@
                                      </ChoiceBox>
                                     <Label layoutX="132.0" layoutY="95.0" text="Label" visible="false" />
                                     <Button fx:id="pulisci" layoutX="80.0" layoutY="57.0" mnemonicParsing="false" onAction="#handlePulisci" text="Pulisci" />
+                                    <Label fx:id="label_file" layoutX="146.0" layoutY="61.0" text="Nessun file aperto" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <BarChart fx:id="istogramma" alternativeColumnFillVisible="true" layoutX="-112.0" layoutY="-113.0" legendVisible="false" prefHeight="190.0" prefWidth="298.0" title="Frequenza degli stati" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <BarChart fx:id="histogram" alternativeColumnFillVisible="true" layoutX="-112.0" layoutY="-113.0" legendVisible="false" prefHeight="190.0" prefWidth="298.0" title="Frequenza degli stati" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                                       </xAxis>
                                       <yAxis>
-                                        <NumberAxis side="LEFT" />
+                                        <NumberAxis side="LEFT" fx:id="yAxis" />
                                       </yAxis>
                                     </BarChart>
                                  </children>

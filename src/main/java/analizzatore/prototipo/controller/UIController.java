@@ -1,15 +1,17 @@
 package analizzatore.prototipo.controller;
 
 import analizzatore.prototipo.*;
-import analizzatore.prototipo.model.Risultato;
-import analizzatore.prototipo.model.RisultatoDHCP;
-import analizzatore.prototipo.model.RisultatoHTTP;
+import analizzatore.prototipo.model.Result;
+import analizzatore.prototipo.model.ResultDHCP;
+import analizzatore.prototipo.model.ResultHTTP;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,7 +30,7 @@ import static analizzatore.prototipo.Constants.DHCP_PROTOCOL_NAME;
  * Created by Antonio on 31/07/2016.
  */
 public class UIController {
-    private AnalizzatoreUI aui;
+    private AnalyserUI aui;
 
     private File file = null;
 
@@ -39,13 +41,19 @@ public class UIController {
     private ChoiceBox<String> choiceProtocol;
 
     @FXML
-    private CheckBox salvaFile;
+    private CheckBox saveFile;
 
     @FXML
-    private BarChart<String,Number> istogramma;
+    private BarChart<String,Number> histogram;
 
     @FXML
     private CategoryAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
+    @FXML
+    private Label label_file;
 
     public UIController(){
     }
@@ -55,6 +63,7 @@ public class UIController {
         output.setText("Nessun file selezionato.\n");
         choiceProtocol.getSelectionModel().selectFirst();
         xAxis.setLabel("Stati");
+        yAxis.setTickUnit(1);
     }
 
     @FXML
@@ -65,21 +74,22 @@ public class UIController {
         fC.setInitialDirectory(new File(System.getProperty("user.home")));
         fC.getExtensionFilters().add(ef);
         file = fC.showOpenDialog(new Stage());
+        label_file.setText(file.getName());
         if(file != null)
             output.appendText("File aperto con successo. Clicca analizza...\n");
     }
 
     @FXML
     private void handleAnalizza()throws IOException{
+        handlePulisci();
         output.appendText("Sto analizzando il file....\n");
         if(choiceProtocol.getValue().equals(DHCP_PROTOCOL_NAME)) {
-            DHCP dhcp = new DHCP(file, DHCP_PROTOCOL_NAME);
+            DHCP dhcp = new DHCP(file);
             try {
-                RisultatoDHCP ris = dhcp.run();
+                ResultDHCP ris = dhcp.run();
                 compute(ris);
             } catch (ProtocolMismatchException e) {
-                output.appendText(e.getMessage() + "Fai attenzione alla scelta del protocollo.");
-
+                output.appendText(e.getMessage());
             } catch (TransitionNotFoundException e) {
                 output.appendText(e.getMessage());
             } catch (TransitionNotValidException e) {
@@ -89,13 +99,12 @@ public class UIController {
             }
         }
         else{
-            HTTP http = new HTTP(file, choiceProtocol.getValue().toString());
+            HTTP http = new HTTP(file);
             try{
-                RisultatoHTTP ris = http.run();
+                ResultHTTP ris = http.run();
                 compute(ris);
             } catch (ProtocolMismatchException e) {
-                output.appendText(e.getMessage() + "Fai attenzione alla scelta del protocollo.");
-
+                output.appendText(e.getMessage());
             } catch (TransitionNotFoundException e) {
                 output.appendText(e.getMessage());
             } catch (TransitionNotValidException e) {
@@ -106,10 +115,10 @@ public class UIController {
         }
     }
 
-    private void compute(Risultato ris) throws IOException{
+    private void compute(Result ris) throws IOException{
         this.handleResult(ris);
         this.handleIstogramma(ris.getNumberStates());
-        if (salvaFile.isSelected())
+        if (saveFile.isSelected())
             this.saveToFile(ris.getResultString());
     }
 
@@ -118,14 +127,14 @@ public class UIController {
         Set<String> keySet = numberStates.keySet();
         for(String s: keySet)
             frequenze.getData().add(new XYChart.Data(s,numberStates.get(s)));
-        istogramma.getData().add(frequenze);
+        histogram.getData().add(frequenze);
     }
 
     private void saveToFile(String result) throws IOException{
         FileChooser fC = new FileChooser();
         fC.setTitle("Scegli file di output...");
         fC.setInitialFileName("risultato");
-        FileChooser.ExtensionFilter ef = new FileChooser.ExtensionFilter("TXT", "*.TXT");
+        FileChooser.ExtensionFilter ef = new FileChooser.ExtensionFilter("TXT", "*.txt");
         fC.getExtensionFilters().add(ef);
         fC.setInitialDirectory(new File(System.getProperty("user.home")));
         file = fC.showSaveDialog(new Stage());
@@ -134,17 +143,13 @@ public class UIController {
         }
     }
 
-    private void handleResult(Risultato ris){
+    private void handleResult(Result ris){
         output.appendText(ris.getResultString());
     }
 
     @FXML
     private void handlePulisci(){
         output.setText("");
-        istogramma.getData().clear();
-    }
-
-    public void setAnalizzatoreUI(AnalizzatoreUI aui){
-        this.aui = aui;
+        histogram.getData().clear();
     }
 }

@@ -1,6 +1,6 @@
 package analizzatore.prototipo;
 
-import analizzatore.prototipo.model.RisultatoDHCP;
+import analizzatore.prototipo.model.ResultDHCP;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -20,52 +20,57 @@ import static analizzatore.prototipo.Constants.*;
 
 /**
  * Created by Antonio on 04/06/2016.
+ * Estende la classe AbstractStateMachine e consente la verifica di tracce appartenenti al protocollo DHCP.
  */
 public class DHCP extends AbstractStateMachine {
     private File f_input;
     private String message = null;
-    private String protocol;
-    private String fileName;
-    private RisultatoDHCP ris;
-    private State currentState;
+    private ResultDHCP ris;
+    private String currentState;
+    private String initialState;
 
-    public DHCP(File f_input, String protocol) {
-        super(DHCP.class.getClassLoader().getResource(DHCP_RESOURCE));
-        this.f_input = f_input;
-        this.protocol = protocol;
-        this.fileName = f_input.getAbsolutePath();
+    public DHCP(File f_input) {
+        super(DHCP.class.getClassLoader().getResource(DHCP_RESOURCE)); //costruttore della superclasse
+        this.f_input = f_input; //file di input, da esaminare
     }
 
-    public RisultatoDHCP run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException{
-        int countPackets = 0;
+    public ResultDHCP run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException{
+        int countPackets = 0; //contatore dei pacchetti
         try
         {
             String protocol = null;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for(CSVRecord r: parser){
-                countPackets++;
-                protocol = r.get(4);
-                if(!protocol.equals(DHCP_PROTOCOL_NAME))
-                    throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol);
-                message = r.get(6);
+                protocol = r.get(4); //estrazione del campo relativo al tipo di protocollo
+                if(!protocol.equals(DHCP_PROTOCOL_NAME)) //controllo sul tipo di protocollo
+                    throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol
+                            + "\nBisogna porre attenzione all'utilizzo del filtro su Wireshark.\n" +
+                            "Oppure bisogna porre attenzione al protocollo selezionato dal menu dell'interfaccia.\n");
+                countPackets++; //incremento del numero dei pacchetti
+                message = r.get(6); //estrazione del campo relativo alle informazioni
+                /*
+                Si sfrutta la formattazione di Wireshark.
+                 */
                 int lastIndex = message.lastIndexOf('-');
                 message = message.substring(0,lastIndex).trim();
-                if(!DHCP_TRANSITIONS.contains(message))
-                    throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.");
-                Set<State> states = this.getEngine().getCurrentStatus().getAllStates();
+                if(!DHCP_TRANSITIONS.contains(message)) //controllo che la transizione sia presente
+                    throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.\n");
+                Set<State> states = this.getEngine().getCurrentStatus().getAllStates(); //insieme degli stati attivi in quel momento
                 boolean check = false;
                 List<Transition> transitions = null;
-                for(State s: states){
+                for(State s: states){ //per ogni stato si ottiene la lista delle transizioni
+                    currentState = s.getId();
                     transitions = s.getTransitionsList();
-                    for(Transition t: transitions)
-                        if (message.equals(t.getEvent())) {
+                    for(Transition t: transitions) //per ogni transizione si verifica l'applicabilità dell'evento presente in message
+                        if (message.equals(t.getEvent())) { //qualora si verifichi ciò
                             check = true;
-                            ris.addEvent(message);
-                            ris.addExtraInfo(DHCP_EXTRAINFO.get(s.getId()+"-"+message));
+                            ris.addEvent(message); //si aggiunge l'evento ai risultati
+                            ris.addExtraInfo(DHCP_EXTRAINFO.get(currentState+"-"+message)); //si aggiungono informazioni extra caratterizzanti quell'evento
                         }
                 }
-                if(!check)
-                    throw new TransitionNotValidException("Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
+                if(!check) //qualora l'evento non sia applicabile. Viene anche stampata la lista degli eventi possibili da quello stato.
+                    throw new TransitionNotValidException("Stato: "
+                            + currentState + ". Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
                 this.fireEvent(message);
             }
         }catch(FileNotFoundException e){
@@ -74,9 +79,13 @@ public class DHCP extends AbstractStateMachine {
         catch(IOException e) {
             e.printStackTrace();
         }
-        ris.setFileName(fileName);
-        ris.setProtocol(protocol);
+        /*
+        Impostazione di parametri per il risultato.
+         */
+        ris.setFileName(f_input.getAbsolutePath());
+        ris.setProtocol(DHCP_PROTOCOL_NAME);
         ris.setCountPackets(countPackets);
+        ris.addNumberStatesInfo();
         return ris;
     }
 
@@ -84,42 +93,37 @@ public class DHCP extends AbstractStateMachine {
     della macchina a stati finiti.
      */
 
+    /*
+    Dal momento che
+     */
     public void Init(){
         if(ris == null) {
-            ris = new RisultatoDHCP();
+            ris = new ResultDHCP();
             ris.createStates();
+            initialState = this.getEngine().getStateMachine().getInitial();
         }
-        ris.incrementNumberStates("Init");
-        ris.addState("Init");
+        ris.addState(initialState);
     }
 
     public void Selecting(){
-        if(ris.getNumberStates().get("Selecting") <= 1)
-            ris.addState("Selecting");
-        else{
-            ris.addState("Selecting");
+        ris.addState("Selecting");
+        if(ris.getNumberStates().get("Selecting") > 1)
             ris.addExtraInfo("Si stanno collezionando più offerte.");
-        }
-        ris.incrementNumberStates("Selecting");
     }
 
     public void Requesting(){
-        ris.incrementNumberStates("Requesting");
         ris.addState("Requesting");
     }
 
     public void Bound(){
-        ris.incrementNumberStates("Bound");
         ris.addState("Bound");
     }
 
     public void Renewing(){
-        ris.incrementNumberStates("Renewing");
         ris.addState("Renewing");
     }
 
     public void Rebinding(){
-        ris.incrementNumberStates("Rebinding");
         ris.addState("Rebinding");
     }
 }

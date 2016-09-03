@@ -5,9 +5,9 @@ import static analizzatore.prototipo.Constants.HTTP_STATES;
 /**
  * Created by Antonio on 20/08/2016.
  */
-public class RisultatoHTTP extends Risultato {
+public class ResultHTTP extends Result {
 
-    public RisultatoHTTP(){
+    public ResultHTTP(){
         super();
     }
 

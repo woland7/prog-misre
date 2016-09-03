@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AnalizzatoreUI extends Application {
+public class AnalyserUI extends Application {
     private Stage primaryStage;
     private BorderPane ui;
 
@@ -30,7 +30,7 @@ public class AnalizzatoreUI extends Application {
     public void initUI(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(AnalizzatoreUI.class.getResource("/ui.fxml"));
+            loader.setLocation(AnalyserUI.class.getResource("/ui.fxml"));
             ui = (BorderPane) loader.load();
             Scene scene = new Scene(ui);
             primaryStage.setScene(scene);

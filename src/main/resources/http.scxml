@@ -1,56 +1,46 @@
 <scxml 
-    initial="Need Request"
-    name="http"
+    initial="NeedRequest"
+    name="HTTP"
     xmlns="http://www.w3.org/2005/07/scxml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="scxml.xsd" version="1.0">
-    <state id="Need Request">
-        <transition event="Get" target="Sent Request"></transition>
-        <transition event="Head" target="Sent Request"></transition>
-        <transition event="Post" target="Sent Request"></transition>
-        <transition event="Put" target="Sent Request"></transition>
-        <transition event="Delete" target="Sent Request"></transition>
+    <state id="NeedRequest">
+        <transition event="G" target="SentRequest"></transition>
+        <transition event="H" target="SentRequest"></transition>
+        <transition event="P" target="SentRequest"></transition>
+        <transition event="P" target="SentRequest"></transition>
+        <transition event="D" target="SentRequest"></transition>
     </state>
-    <state id="Sent Request">
-        <transition event="1XX" target="Information"></transition>
-        <transition event="2XX" target="Successful"></transition>
-        <transition event="3XX" target="Redirection"></transition>
-        <transition event="4XX" target="Client Error"></transition>
-        <transition event="5XX" target="Server Error"></transition>
-        <transition event="Get" target="Sent Request"></transition>
-        <transition event="Head" target="Sent Request"></transition>
-        <transition event="Post" target="Sent Request"></transition>
-        <transition event="Put" target="Sent Request"></transition>
-        <transition event="Delete" target="Sent Request"></transition>
+    <state id="SentRequest">
+        <transition event="1" target="Information"></transition>
+        <transition event="2" target="Successful"></transition>
+        <transition event="3" target="Redirection"></transition>
+        <transition event="4" target="ClientError"></transition>
+        <transition event="5" target="ServerError"></transition>
+        <transition event="G" target="SentRequest"></transition>
+        <transition event="H" target="SentRequest"></transition>
+        <transition event="P" target="SentRequest"></transition>
+        <transition event="P" target="SentRequest"></transition>
+        <transition event="D" target="SentRequest"></transition>
     </state>
     <state id="Information">
-        <one-entry>
-            <send event="reset"></send>
-        </one-entry>
-        <transition event="reset" target="Need Request"></transition>
+        <transition event="no_pipeline" target="NeedRequest"></transition>
+        <transition event="pipeline" target="SentRequest"></transition>
     </state>
     <state id="Successful">
-        <one-entry>
-            <send event="reset"></send>
-        </one-entry>
-        <transition event="reset" target="Need Request"></transition>
+        <transition event="no_pipeline" target="NeedRequest"></transition>
+        <transition event="pipeline" target="SentRequest"></transition>
     </state>
     <state id="Redirection">
-        <one-entry>
-            <send event="reset"></send>
-        </one-entry>
-        <transition event="reset" target="Need Request"></transition>
+        <transition event="no_pipeline" target="NeedRequest"></transition>
+        <transition event="pipeline" target="SentRequest"></transition>
     </state>
-    <state id="Client Error">
-        <one-entry>
-            <send event="reset"></send>
-        </one-entry>
-        <transition event="reset" target="Need Request"></transition>
+    <state id="ClientError">
+        <transition event="no_pipeline" target="NeedRequest"></transition>
+        <transition event="pipeline" target="SentRequest"></transition>
     </state>
-    <state id="Server Error">
-        <one-entry>
-            <send event="reset"></send>
-        </one-entry>
-        <transition event="reset" target="Need Request"></transition>
+    <state id="ServerError">
+        <transition event="no_pipeline" target="NeedRequest"></transition>
+        <transition event="pipeline" target="SentRequest"></transition>
     </state>
 </scxml>
