@@ -9,10 +9,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.scxml.model.Transition;
@@ -60,7 +57,6 @@ public class UIController {
 
     @FXML
     private void initialize(){
-        output.setText("Nessun file selezionato.\n");
         choiceProtocol.getSelectionModel().selectFirst();
         xAxis.setLabel("Stati");
         yAxis.setTickUnit(1);
@@ -151,5 +147,14 @@ public class UIController {
     private void handlePulisci(){
         output.setText("");
         histogram.getData().clear();
+    }
+
+    @FXML
+    private void handleAbout(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("Analizzatore prototipo");
+        alert.setContentText("Progetto sviluppato da\nAntonio De Iasio\nGianluca Giso\nLuca Miranda");
+        alert.showAndWait();
     }
 }
