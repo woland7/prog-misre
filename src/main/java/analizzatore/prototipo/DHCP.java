@@ -39,13 +39,17 @@ public class DHCP extends AbstractStateMachine {
         try
         {
             String protocol = null;
+            boolean protocol_mismatch = false;
+            boolean oneOffer = false;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for(CSVRecord r: parser){
                 protocol = r.get(4); //estrazione del campo relativo al tipo di protocollo
-                if(!protocol.equals(DHCP_PROTOCOL_NAME)) //controllo sul tipo di protocollo
-                    throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol
-                            + "\nBisogna porre attenzione all'utilizzo del filtro su Wireshark.\n" +
-                            "Oppure bisogna porre attenzione al protocollo selezionato dal menu dell'interfaccia.\n");
+                if(!protocol.equals(DHCP_PROTOCOL_NAME)) {//controllo sul tipo di protocollo
+                    protocol_mismatch = true;
+                    break;
+                }
+                else
+                    protocol_mismatch = false;
                 countPackets++; //incremento del numero dei pacchetti
                 message = r.get(6); //estrazione del campo relativo alle informazioni
                 /*
@@ -57,7 +61,6 @@ public class DHCP extends AbstractStateMachine {
                     throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.\n");
                 Set<State> states = this.getEngine().getCurrentStatus().getAllStates(); //insieme degli stati attivi in quel momento
                 boolean check = false;
-                boolean oneOffer = false;
                 List<Transition> transitions = null;
                 for(State s: states){ //per ogni stato si ottiene la lista delle transizioni
                     currentState = s.getId();
@@ -74,11 +77,14 @@ public class DHCP extends AbstractStateMachine {
                 if(!check) //qualora l'evento non sia applicabile. Viene anche stampata la lista degli eventi possibili da quello stato.
                     throw new TransitionNotValidException("Stato: "
                             + currentState + ". Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
-                if(!oneOffer)
-                    throw new TransitionNotValidException("Bisogna ricevere almeno un'offerta.\n", null);
                 isStartingAnew(oneOffer);
                 this.fireEvent(message);
             }
+            if(protocol_mismatch)
+                throw new ProtocolMismatchException("Non esiste alcun pacchetto del protocollo scelto. " +
+                        "Bisogna porre attenzione al protocollo selezionato dal menu dell'interfaccia.\n");
+            if(!oneOffer)
+                throw new TransitionNotValidException("Bisogna ricevere almeno un'offerta.\n", null);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }
@@ -105,9 +111,6 @@ public class DHCP extends AbstractStateMachine {
     della macchina a stati finiti.
      */
 
-    /*
-    Dal momento che
-     */
     public void Init(){
         if(ris == null) {
             ris = new ResultDHCP();
