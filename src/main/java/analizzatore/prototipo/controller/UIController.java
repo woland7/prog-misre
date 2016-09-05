@@ -90,8 +90,9 @@ public class UIController {
                 output.appendText(e.getMessage());
             } catch (TransitionNotValidException e) {
                 output.appendText(e.getMessage());
-                for(Transition t: e.getTransitions())
-                    output.appendText(t.getEvent()+"\n");
+                if(e.getTransitions() != null)
+                    for(Transition t: e.getTransitions())
+                        output.appendText(t.getEvent()+"\n");
             }
         }
         else{
@@ -153,8 +154,9 @@ public class UIController {
     private void handleAbout(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
-        alert.setHeaderText("Analizzatore prototipo");
-        alert.setContentText("Progetto sviluppato da\nAntonio De Iasio\nGianluca Giso\nLuca Miranda");
+        alert.setHeaderText("Prototipo di analizzatore");
+        alert.setContentText("Progetto sviluppato da\nAntonio De Iasio\nGianluca Giso\nLuca Miranda\n" +
+                "Protocolli supportati: DHCP, HTTP");
         alert.showAndWait();
     }
 }

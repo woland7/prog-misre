@@ -57,6 +57,7 @@ public class DHCP extends AbstractStateMachine {
                     throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.\n");
                 Set<State> states = this.getEngine().getCurrentStatus().getAllStates(); //insieme degli stati attivi in quel momento
                 boolean check = false;
+                boolean oneOffer = false;
                 List<Transition> transitions = null;
                 for(State s: states){ //per ogni stato si ottiene la lista delle transizioni
                     currentState = s.getId();
@@ -66,11 +67,16 @@ public class DHCP extends AbstractStateMachine {
                             check = true;
                             ris.addEvent(message); //si aggiunge l'evento ai risultati
                             ris.addExtraInfo(DHCP_EXTRAINFO.get(currentState+"-"+message)); //si aggiungono informazioni extra caratterizzanti quell'evento
+                            if(currentState.equals("Selecting") && message.equals("DHCP Offer") && oneOffer == false)
+                                oneOffer = true;
                         }
                 }
                 if(!check) //qualora l'evento non sia applicabile. Viene anche stampata la lista degli eventi possibili da quello stato.
                     throw new TransitionNotValidException("Stato: "
                             + currentState + ". Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
+                if(!oneOffer)
+                    throw new TransitionNotValidException("Bisogna ricevere almeno un'offerta.\n", null);
+                isStartingAnew(oneOffer);
                 this.fireEvent(message);
             }
         }catch(FileNotFoundException e){
@@ -87,6 +93,12 @@ public class DHCP extends AbstractStateMachine {
         ris.setCountPackets(countPackets);
         ris.addNumberStatesInfo();
         return ris;
+    }
+
+    public void isStartingAnew(boolean oneOffer){
+        if((currentState.equals("Renewing") || currentState.equals("Rebinding")
+                || currentState.equals("Requesting")) && (message.equals("DHCP NACK") || message.equals("DHCP Decline")))
+            oneOffer = false;
     }
 
     /*Ciascuno dei metodi sottostanti corrisponde a una degli stati dello schema

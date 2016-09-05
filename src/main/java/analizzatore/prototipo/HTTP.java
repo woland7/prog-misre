@@ -40,6 +40,7 @@ public class HTTP extends AbstractStateMachine {
 
     public ResultHTTP run() throws ProtocolMismatchException, TransitionNotValidException, TransitionNotFoundException {
         int countPackets = 0;
+        boolean check1 = false;
         try {
             String protocol = null;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
@@ -62,6 +63,10 @@ public class HTTP extends AbstractStateMachine {
                         throw new TransitionNotFoundException("La transizione " + message + " non esiste per il protocollo scelto.\n");
                     Set<State> states = this.getEngine().getCurrentStatus().getAllStates();
                     boolean check = false;
+                    if(pipeline > 1 && check1 == false){
+                        ris.addExtraInfo("Inizio pipeline.");
+                        check1 = true;
+                    }
                     List<Transition> transitions = null;
                     for (State s: states) {
                         transitions = s.getTransitionsList();
@@ -74,24 +79,22 @@ public class HTTP extends AbstractStateMachine {
                     }
                     if (!check)
                         throw new TransitionNotValidException("Stato: "
-                            + currentState + ". Transizione non valida: " + message +". Le transizioni applicabili da questo stato sono:\n", transitions);
-                    boolean check1 = false;
-                    if(pipeline > 1){
-                        ris.addExtraInfo("Inizio risposte in pipeline.\n");
-                        check1 = true;
-                    }
+                            + currentState + ". Transizione non valida: " + message + ". Le transizioni applicabili da questo stato sono:\n", transitions);
+
                     this.fireEvent(transition.substring(0,1));
 
                     if(!currentState.equals("NeedRequest") || !currentState.equals("SentRequest")){
                         if(pipeline == 0) {
-                            if(check1)
-                                ris.addExtraInfo("Fine risposte in pipeline.\n");
+                            if(check1){
+                                System.out.println("ciao");
+                                check1 = false;
+                                ris.addExtraInfo("Fine pipeline.");
+                            }
                             this.fireEvent("no_pipeline");
                         }
                         else
                             this.fireEvent("pipeline");
                     }
-
                 }
             }
         } catch (FileNotFoundException e) {
