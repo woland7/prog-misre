@@ -14,11 +14,12 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'groovy'
-apply plugin: 'application'
 
 repositories {
     mavenCentral()
 }
+
+
 
 dependencies{
     // this dependency is only required when using UserJvmOptionsService

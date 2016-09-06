@@ -76,40 +76,43 @@ public class UIController {
     }
 
     @FXML
-    private void handleAnalizza()throws IOException{
+    private void handleAnalizza()throws IOException {
         handlePulisci();
-        output.appendText("Sto analizzando il file....\n");
-        if(choiceProtocol.getValue().equals(DHCP_PROTOCOL_NAME)) {
-            DHCP dhcp = new DHCP(file);
-            try {
-                ResultDHCP ris = dhcp.run();
-                compute(ris);
-            } catch (ProtocolMismatchException e) {
-                output.appendText(e.getMessage());
-            } catch (TransitionNotFoundException e) {
-                output.appendText(e.getMessage());
-            } catch (TransitionNotValidException e) {
-                output.appendText(e.getMessage());
-                if(e.getTransitions() != null)
-                    for(Transition t: e.getTransitions())
-                        output.appendText(t.getEvent()+"\n");
+        if (file != null) {
+            output.appendText("Sto analizzando il file....\n");
+            if (choiceProtocol.getValue().equals(DHCP_PROTOCOL_NAME)) {
+                DHCP dhcp = new DHCP(file);
+                try {
+                    ResultDHCP ris = dhcp.run();
+                    compute(ris);
+                } catch (ProtocolMismatchException e) {
+                    output.appendText(e.getMessage());
+                } catch (TransitionNotFoundException e) {
+                    output.appendText(e.getMessage());
+                } catch (TransitionNotValidException e) {
+                    output.appendText(e.getMessage());
+                    if (e.getTransitions() != null)
+                        for (Transition t : e.getTransitions())
+                            output.appendText(t.getEvent() + "\n");
+                }
+            } else {
+                HTTP http = new HTTP(file);
+                try {
+                    ResultHTTP ris = http.run();
+                    compute(ris);
+                } catch (ProtocolMismatchException e) {
+                    output.appendText(e.getMessage());
+                } catch (TransitionNotFoundException e) {
+                    output.appendText(e.getMessage());
+                } catch (TransitionNotValidException e) {
+                    output.appendText(e.getMessage());
+                    for (Transition t : e.getTransitions())
+                        output.appendText(t.getEvent() + "\n");
+                }
             }
         }
-        else{
-            HTTP http = new HTTP(file);
-            try{
-                ResultHTTP ris = http.run();
-                compute(ris);
-            } catch (ProtocolMismatchException e) {
-                output.appendText(e.getMessage());
-            } catch (TransitionNotFoundException e) {
-                output.appendText(e.getMessage());
-            } catch (TransitionNotValidException e) {
-                output.appendText(e.getMessage());
-                for(Transition t: e.getTransitions())
-                    output.appendText(t.getEvent()+"\n");
-            }
-        }
+        else
+            output.appendText("Ancora nessun file aperto\n.");
     }
 
     private void compute(Result ris) throws IOException{
