@@ -17,9 +17,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static analizzatore.prototipo.Constants.HTTP_PROTOCOL_NAME;
-import static analizzatore.prototipo.Constants.HTTP_RESOURCE;
-import static analizzatore.prototipo.Constants.HTTP_TRANSITIONS;
+import static analizzatore.prototipo.Constants.*;
 
 
 /**
@@ -43,13 +41,17 @@ public class HTTP extends AbstractStateMachine {
         boolean check1 = false;
         try {
             String protocol = null;
+            boolean protocol_mismatch = false;
             CSVParser parser = new CSVParser(new FileReader(f_input), CSVFormat.DEFAULT.withFirstRecordAsHeader().withSkipHeaderRecord(true));
             for (CSVRecord r : parser) {
+                protocol = r.get(4); //estrazione del campo relativo al tipo di protocollo
+                if(!protocol.equals(HTTP_PROTOCOL_NAME)) {//controllo sul tipo di protocollo
+                    protocol_mismatch = true;
+                    break;
+                }
+                else
+                    protocol_mismatch = false;
                 countPackets++;
-                protocol = r.get(4);
-                if (!protocol.equals(HTTP_PROTOCOL_NAME))
-                    throw new ProtocolMismatchException("Esiste un pacchetto di un altro protocollo: " + protocol
-                            + "\nFai attenzione alla scelta del protocollo.");
                 message = r.get(6);
                 if (message.contains("TCP")) {
                     ris.addExtraInfo("Condizione particolare:");
@@ -97,6 +99,9 @@ public class HTTP extends AbstractStateMachine {
                     }
                 }
             }
+            if(protocol_mismatch)
+                throw new ProtocolMismatchException("Non esiste alcun pacchetto del protocollo scelto.\n" +
+                        "Bisogna porre attenzione al protocollo selezionato dal menu dell'interfaccia.\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

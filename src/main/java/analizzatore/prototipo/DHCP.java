@@ -81,7 +81,7 @@ public class DHCP extends AbstractStateMachine {
                 this.fireEvent(message);
             }
             if(protocol_mismatch)
-                throw new ProtocolMismatchException("Non esiste alcun pacchetto del protocollo scelto. " +
+                throw new ProtocolMismatchException("Non esiste alcun pacchetto del protocollo scelto.\n" +
                         "Bisogna porre attenzione al protocollo selezionato dal menu dell'interfaccia.\n");
             if(!oneOffer)
                 throw new TransitionNotValidException("Bisogna ricevere almeno un'offerta.\n", null);
